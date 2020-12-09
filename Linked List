@@ -1,0 +1,429 @@
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+
+//create node type of dataType
+struct node
+{
+	int info;
+	struct node *link;
+};
+
+void create();
+
+void insertEnd();
+void insertBeginning();
+void insertAfterItem();
+void insertBeforeItem();
+void deletionBeginning();
+void deletionEnd();
+void deleteItem();
+
+
+struct node *search1();
+struct node *search2();
+struct node *search3();
+
+struct node *START=NULL;
+struct node *PTR,*NEW;
+struct node *LOC;
+
+void main()
+{
+	int option;
+	int info ;
+	int item1,item2;
+	do
+	{
+		printf("\n****Linked List****\n");
+		printf("\nPress 1.Create a linked list");
+		printf("\nPress 2.Insertion in beginning of linked list");
+		printf("\nPress 3.Insertion in End of linked list");
+		printf("\nPress 4.Insertion after an ITEM");
+		printf("\nPress 5.Insertion before an ITEM");
+		printf("\nPress 6.Delete a node from Beginning of linked list");
+		printf("\nPress 7.Delete a node from End of linked list");
+		printf("\nPress 8.Delete of an item of linked list");
+		printf("\nPress 9.To EXIT from program");
+		printf("\nENTER YOUR CHOICE:");
+		scanf("%d",&option);
+		printf("\n");
+		switch(option)
+		{
+			
+			case 1:create();
+			break;
+	        case 2:insertBeginning();
+			break;
+			case 3:insertEnd();
+			break ;
+			case 4:insertAfterItem();
+			break; 
+			case 5:insertBeforeItem();
+			break ;
+			case 6:deletionBeginning();
+			break ;
+			case 7:deletionEnd();
+			break ;
+			case 8:deleteItem();
+			break ;
+			case 9: exit(0);
+			default: printf("You have entered the Wrong Choice. Please enter among 1 to 9 only");
+			
+		};
+	}while(option!=10);
+	getch();
+}
+
+
+void create()
+{
+	int i,n;
+	printf("Enter the number of nodes you want to create in linked list:");
+	scanf("%d",&n);
+	START=NULL;
+	for(i=1;i<=n;i++)
+	{		
+		NEW=(struct node *)malloc(sizeof(struct node));
+		if(NEW==NULL)
+		{
+			printf("Not enough memory ");
+			exit(0);
+		}
+		
+		printf("Enter the item:");
+		scanf("%d",&NEW->info);
+			NEW->link=NULL;
+		
+		if(START==NULL)
+		{
+			START=NEW;
+			PTR=NEW;
+		}
+		else
+		{
+		PTR->link=NEW;
+		PTR=NEW;
+		}
+		
+	}
+	
+	//Printing of linked list
+	PTR=START;
+	while(PTR!=NULL)
+	{
+		printf("\n%d",PTR->info);
+		PTR=PTR->link;
+	}
+}
+
+void insertBeginning()
+{
+	//To check linked list is created or not before this operation
+	if(START==NULL)
+	{
+		create();
+	}
+	
+	int i,n;
+	printf("Enter the number of nodes you want to insert in beginning of linked list:");
+	scanf("%d",&n);
+	for(i=1;i<=n;i++)
+	{		
+		NEW=(struct node *)malloc(sizeof(struct node));
+		if(NEW==NULL)
+		{
+			printf("Not enough memory ");
+			exit(0);
+		}
+		
+		printf("Enter the item:");
+		scanf("%d",&NEW->info);
+		NEW->link=START;
+		START=NEW;
+	}
+	
+	//Printing of linked list
+	PTR=START;
+	while(PTR!=NULL)
+	{
+		printf("\n%d",PTR->info);
+		PTR=PTR->link;
+	}
+}
+
+//struct node *insertEnd()
+void insertEnd()
+{
+	//To check linked list is created or not before this operation
+	if(START==NULL)
+	{
+		create();
+	}
+	
+	int i,n;
+	printf("\nEnter the number of nodes you want to insert in End of linked list:");
+	scanf("%d",&n);
+	
+	for(i=1;i<=n;i++)
+	{
+	
+		NEW=(struct node *)malloc(sizeof(struct node));
+		if(NEW==NULL)
+		{
+			printf("Not enough memory ");
+			exit(0);
+		}
+		printf("Enter the item:");
+		scanf("%d",&NEW->info);
+		NEW->link=NULL;
+		PTR=START;
+		//test
+		
+		while(PTR->link!=NULL)
+		{
+			PTR=PTR->link;
+		}
+		PTR->link=NEW;
+	}
+
+	//Printing the linked list
+    PTR=START;
+    while(PTR!=NULL)
+	{
+		printf("\n%d",PTR->info);
+		PTR=PTR->link;
+	}
+ 
+}
+
+void insertAfterItem()
+{
+	//To check linked list is created or not before this operation 
+	if(START==NULL)
+	{
+		create();
+	}
+	int item1;
+	LOC=search1();
+	NEW=(struct node *)malloc(sizeof(struct node));
+	printf("\nEnter the item you want to insert:");
+	scanf("%d",&item1);
+	NEW->info=item1;
+	if(LOC==NULL)
+	{
+		NEW->link=START;
+		START = NEW;
+	}
+	else
+	{
+		NEW->link=LOC->link;
+		LOC->link=NEW;
+	}
+	
+	//Printing of linked list
+	PTR=START;
+	while(PTR!=NULL)
+	{
+		printf("\n%d",PTR->info);
+		PTR=PTR->link;
+	}
+	
+}
+
+void insertBeforeItem()
+{
+	//To check linked list is created or not before this operation 
+	if(START==NULL)
+	{
+		create();
+	}
+	
+	int item1;
+	LOC=search2();
+	NEW=(struct node *)malloc(sizeof(struct node));
+	printf("\nEnter the item you want to insert:");
+	scanf("%d",&item1);
+	NEW->info=item1;
+	if(START==LOC)
+	{
+		NEW->link=START;
+		START = NEW;
+	}
+	else
+	{
+		PTR=START;
+		while (PTR->link!=LOC)
+		{
+			PTR=PTR->link;
+		}
+		NEW->link=LOC;
+		PTR->link=NEW;
+	}
+		//Printing of linked list
+	PTR=START;
+	while(PTR!=NULL)
+	{
+		printf("\n%d",PTR->info);
+		PTR=PTR->link;
+	}
+}
+
+void deletionBeginning()
+{
+	int item;
+	struct node *temp;
+	if(START==NULL)
+	{
+		printf("\nLinked List is Empty");
+		printf("\nUnderflow");
+	}
+	
+	item=START->info;
+	temp=START;
+	START = START->link;
+	//Printing of linked list
+	PTR=START;
+	while(PTR!=NULL)
+	{
+		printf("\n%d",PTR->info);
+		PTR=PTR->link;
+	}
+}
+
+void deletionEnd()
+{
+	int item;
+	struct node *temp,*SAVE;
+	if(START==NULL)
+	{
+		printf("\nLinked List is Empty");
+		printf("\nUnderflow");
+	}
+	if(START->link==NULL)
+	{
+		item=START->info;
+		temp=START;
+		START = NULL;
+	}
+	SAVE=START;
+	PTR=START->link;
+	while(PTR->link!=NULL)
+	{
+		SAVE = PTR;
+		PTR = PTR->link;
+	}
+	item=PTR->info;
+	temp=PTR;
+	SAVE->link=NULL;
+	
+		//Printing of linked list
+	PTR=START;
+	while(PTR!=NULL)
+	{
+		printf("\n%d",PTR->info);
+		PTR=PTR->link;
+	}
+	
+}
+
+void deleteItem()
+{
+	struct node *temp;
+	int item;
+	LOC=search3();
+	item=LOC->info;
+	temp=LOC;
+	if(START==LOC)
+	{
+		START = LOC->link;
+	}
+	PTR=START;
+	while (PTR->link!=LOC)
+	{
+		PTR=PTR->link;
+		
+	}
+	PTR->link=LOC->link;
+		//Printing the linked list
+    PTR=START;
+    while(PTR!=NULL)
+	{
+		printf("\n%d",PTR->info);
+		PTR=PTR->link;
+	}	
+	
+}
+struct node *search1()
+{
+		/*Search linked list*/
+	int ITEM;
+	printf("\nEnter the item after you want to Insert or Delete:");
+	scanf("%d",&ITEM);
+	PTR=START;
+	while(PTR!=NULL)
+	{
+      if(ITEM==PTR->info)
+	  {
+		printf("Item found");
+		LOC=PTR;
+		return (LOC);
+     	}
+	   else
+	   {
+	   PTR=PTR->link;	
+	    }
+    }  
+	printf("ITEM not found");	
+	getch();
+}
+
+struct node *search2()
+{
+		/*Search linked list*/
+	int ITEM;
+	printf("\nEnter the item before you want to Insert:");
+	scanf("%d",&ITEM);
+	PTR=START;
+	while(PTR!=NULL)
+	{
+      if(ITEM==PTR->info)
+	  {
+		printf("Item found");
+		LOC=PTR;
+		return (LOC);
+     	}
+	   else
+	   {
+	   PTR=PTR->link;	
+	    }
+    }  
+	printf("ITEM not found");	
+	getch();
+}
+
+struct node *search3()
+{
+		/*Search linked list*/
+	int ITEM;
+	printf("\nEnter the item you want to delete:");
+	scanf("%d",&ITEM);
+	PTR=START;
+	while(PTR!=NULL)
+	{
+      if(ITEM==PTR->info)
+	  {
+		printf("Item found");
+		LOC=PTR;
+		return (LOC);
+     	}
+	   else
+	   {
+	   PTR=PTR->link;	
+	    }
+    }  
+	printf("ITEM not found");	
+	getch();
+}
+
+
