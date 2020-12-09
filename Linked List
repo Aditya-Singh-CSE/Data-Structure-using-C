@@ -53,7 +53,7 @@ void main()
 			
 			case 1:create();
 			break;
-	        case 2:insertBeginning();
+	                case 2:insertBeginning();
 			break;
 			case 3:insertEnd();
 			break ;
