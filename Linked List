@@ -10,7 +10,6 @@ struct node
 };
 
 void create();
-
 void insertEnd();
 void insertBeginning();
 void insertAfterItem();
@@ -18,7 +17,7 @@ void insertBeforeItem();
 void deletionBeginning();
 void deletionEnd();
 void deleteItem();
-
+void displayLinkedList();
 
 struct node *search1();
 struct node *search2();
@@ -50,10 +49,9 @@ void main()
 		printf("\n");
 		switch(option)
 		{
-			
 			case 1:create();
 			break;
-	                case 2:insertBeginning();
+	    case 2:insertBeginning();
 			break;
 			case 3:insertEnd();
 			break ;
@@ -68,13 +66,11 @@ void main()
 			case 8:deleteItem();
 			break ;
 			case 9: exit(0);
-			default: printf("You have entered the Wrong Choice. Please enter among 1 to 9 only");
-			
+			default: printf("You have entered the Wrong Choice. Please enter among 1 to 9 only");	
 		};
 	}while(option!=10);
 	getch();
 }
-
 
 void create()
 {
@@ -105,16 +101,9 @@ void create()
 		PTR->link=NEW;
 		PTR=NEW;
 		}
-		
 	}
-	
 	//Printing of linked list
-	PTR=START;
-	while(PTR!=NULL)
-	{
-		printf("\n%d",PTR->info);
-		PTR=PTR->link;
-	}
+	displayLinkedList();
 }
 
 void insertBeginning()
@@ -142,14 +131,8 @@ void insertBeginning()
 		NEW->link=START;
 		START=NEW;
 	}
-	
 	//Printing of linked list
-	PTR=START;
-	while(PTR!=NULL)
-	{
-		printf("\n%d",PTR->info);
-		PTR=PTR->link;
-	}
+	displayLinkedList();
 }
 
 //struct node *insertEnd()
@@ -178,23 +161,14 @@ void insertEnd()
 		scanf("%d",&NEW->info);
 		NEW->link=NULL;
 		PTR=START;
-		//test
-		
 		while(PTR->link!=NULL)
 		{
 			PTR=PTR->link;
 		}
 		PTR->link=NEW;
 	}
-
-	//Printing the linked list
-    PTR=START;
-    while(PTR!=NULL)
-	{
-		printf("\n%d",PTR->info);
-		PTR=PTR->link;
-	}
- 
+	//Printing of linked list
+	displayLinkedList();
 }
 
 void insertAfterItem()
@@ -220,15 +194,8 @@ void insertAfterItem()
 		NEW->link=LOC->link;
 		LOC->link=NEW;
 	}
-	
 	//Printing of linked list
-	PTR=START;
-	while(PTR!=NULL)
-	{
-		printf("\n%d",PTR->info);
-		PTR=PTR->link;
-	}
-	
+	displayLinkedList();
 }
 
 void insertBeforeItem()
@@ -260,13 +227,8 @@ void insertBeforeItem()
 		NEW->link=LOC;
 		PTR->link=NEW;
 	}
-		//Printing of linked list
-	PTR=START;
-	while(PTR!=NULL)
-	{
-		printf("\n%d",PTR->info);
-		PTR=PTR->link;
-	}
+	//Printing of linked list
+	displayLinkedList();
 }
 
 void deletionBeginning()
@@ -283,12 +245,7 @@ void deletionBeginning()
 	temp=START;
 	START = START->link;
 	//Printing of linked list
-	PTR=START;
-	while(PTR!=NULL)
-	{
-		printf("\n%d",PTR->info);
-		PTR=PTR->link;
-	}
+	displayLinkedList();
 }
 
 void deletionEnd()
@@ -316,15 +273,8 @@ void deletionEnd()
 	item=PTR->info;
 	temp=PTR;
 	SAVE->link=NULL;
-	
-		//Printing of linked list
-	PTR=START;
-	while(PTR!=NULL)
-	{
-		printf("\n%d",PTR->info);
-		PTR=PTR->link;
-	}
-	
+	//Printing of linked list
+	displayLinkedList();	
 }
 
 void deleteItem()
@@ -341,18 +291,22 @@ void deleteItem()
 	PTR=START;
 	while (PTR->link!=LOC)
 	{
-		PTR=PTR->link;
-		
+		PTR=PTR->link;	
 	}
 	PTR->link=LOC->link;
-		//Printing the linked list
-    PTR=START;
-    while(PTR!=NULL)
+	//Printing of linked list
+	displayLinkedList();	
+}
+
+void displayLinkedList()
+{
+	//Printing of linked list
+	PTR=START;
+	while(PTR!=NULL)
 	{
 		printf("\n%d",PTR->info);
 		PTR=PTR->link;
-	}	
-	
+	}
 }
 struct node *search1()
 {
@@ -425,5 +379,3 @@ struct node *search3()
 	printf("ITEM not found");	
 	getch();
 }
-
-
