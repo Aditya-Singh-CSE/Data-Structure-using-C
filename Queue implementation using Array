@@ -1,0 +1,106 @@
+#include<stdio.h> 
+#include<conio.h> 
+#include<stdlib.h> 
+#define maxsize 5 
+void Enqueue(void); 
+void Dequeue(void); 
+void traverse(void); 
+int queue[maxsize]; 
+int front = -1, rear = -1; 
+
+void main() 
+{
+int choice;
+do
+{
+
+printf("\n ****QUEUE****\n");
+ printf("\n Press 1. For Insertion in Simple Queue");
+ printf("\n Press 2. For Deletion in Simple Queue");
+ printf("\n Press 3. For Printing Simple Queue on Screen");
+ printf("\n Press 4. To Exit from Program");
+ printf("\n ENTER YOUR CHOICE: ");
+ scanf("%d", &choice);
+ printf("\n");
+ switch(choice)
+{
+ case 1 : Enqueue(); 
+ break;
+ case 2 : Dequeue(); 
+ break;
+ case 3 : traverse();
+ break;
+ case 4 : exit(0);
+ default: printf("You have entered wrong choice Please insert among 1 and 4");
+ };
+}while (choice!=4);
+getch ();
+}
+
+
+void Enqueue (void) 
+{
+int item;
+if (rear == (maxsize-1)) 
+ {
+ printf ("QUEUE IS FULL");
+ getch();
+ }
+else
+ {
+ printf ("ENTER THE ELEMENT TO BE INSERTED: ");
+ scanf ("%d", &item);
+ if (front == -1) 
+{
+front++;
+rear++;
+}
+else
+{
+rear++;
+}
+queue [rear] = item;
+ }
+}
+void Dequeue (void) 
+{
+int item;
+if (front == -1) 
+ {
+ printf("QUEUE IS EMPTY");
+ getch();
+ }
+ else
+{
+ item = queue [front];
+ printf("Deleted element is %d",item);
+ 
+if (front == rear) 
+ {
+ front = -1;
+ rear = -1;
+ }
+ else
+ {
+ front++;
+ }
+ }
+}
+void traverse()
+{
+ int i;
+ if (front == -1) 
+{
+ printf("QUEUE IS EMPTY");
+ getch();
+ }
+ else
+ {
+ for (i=0; i<front; i++) 
+ printf (" * ");
+ for (i=front; i<=rear; i++) 
+ printf ("%d ",queue[i]);
+ for (i=rear+1; i<maxsize; i++) 
+ printf (" - ");
+ }
+}
