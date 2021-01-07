@@ -2,9 +2,9 @@
 #include<conio.h> 
 #include<stdlib.h> 
 #define maxsize 5 
-void Enqueue(void); 
-void Dequeue(void); 
-void traverse(void); 
+void Enqueue(); 
+void Dequeue(); 
+void traverse(); 
 int queue[maxsize]; 
 int front = -1, rear = -1; 
 
@@ -38,7 +38,7 @@ getch ();
 }
 
 
-void Enqueue (void) 
+void Enqueue () 
 {
 int item;
 if (rear == (maxsize-1)) 
@@ -62,7 +62,7 @@ rear++;
 queue [rear] = item;
  }
 }
-void Dequeue (void) 
+void Dequeue () 
 {
 int item;
 if (front == -1) 
